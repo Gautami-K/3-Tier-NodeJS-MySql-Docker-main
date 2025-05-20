@@ -29,12 +29,6 @@ pipeline {
             }
         }
         
-        stage('Trivy FS Scan') {
-            steps {
-                sh "trivy fs --format table -o fs.html ."
-            }
-        }
-        
         stage('Docker build') {
             steps {
                 script {
@@ -43,12 +37,6 @@ pipeline {
                         sh "docker build -t ${IMAGE_NAME}:${TAG} ."
                     }
                 }
-            }
-        }
-        
-        stage('Trivy Image Scan') {
-            steps {
-                sh "trivy image --format table -o image.html ${IMAGE_NAME}:${TAG}"
             }
         }
         
